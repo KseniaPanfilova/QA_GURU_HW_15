@@ -2,24 +2,13 @@ import allure
 import allure_commons
 import pytest
 from appium import webdriver
-from appium.options.android import UiAutomator2Options
 from selene import browser, support
-from utils.allure_attachs import attach_screenshot, attach_screen_xml_dump
+from utils.allure_attachs import attach_screenshot, attach_screen_xml_dump, attach_bstack_video
 import project
 
 
 @pytest.fixture(scope='function', autouse=True)
 def mobile_management():
-    # options = UiAutomator2Options().load_capabilities({
-    #     'appium:udid': project.config.udid,
-    #     'appium:ignoreHiddenApiPolicyError': project.config.ignoreHiddenApiPolicyError,
-    #     'appium:app': project.config.app,
-    #     'appium:appWaitActivity': project.config.appWaitActivity,
-    # }
-    # )
-    #
-    # browser.config.driver_remote_url = project.config.remote_url
-    # browser.config.driver_options = options
     with allure.step('init app session'):
         browser.config.driver = webdriver.Remote(
             project.config.remote_url,
@@ -35,4 +24,9 @@ def mobile_management():
 
     attach_screen_xml_dump()
 
+    session_id = browser.driver.session_id
+
     browser.quit()
+
+    if project.config.context == 'bstack':
+        attach_bstack_video(session_id)

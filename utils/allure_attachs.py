@@ -2,7 +2,7 @@ import allure
 import requests
 from selene import browser
 
-import project1
+import project
 
 
 def attach_screenshot():

@@ -5,7 +5,6 @@ from appium.options.android import UiAutomator2Options
 from utils import file
 
 
-
 class Config(pydantic.BaseSettings):
     context: Literal['bstack', 'emulator', 'real'] = 'emulator'
 
