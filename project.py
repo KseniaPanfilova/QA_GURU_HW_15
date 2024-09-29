@@ -38,7 +38,7 @@ class Config(pydantic.BaseSettings):
             else file.abs_path_from_project(self.app)
         ))
 
-        if self.app.startswith('bs://'):
+        if self.context == 'bstack':
             options.set_capability('platformVersion', '9.0')
             options.set_capability(
                 'bstack:options', {
